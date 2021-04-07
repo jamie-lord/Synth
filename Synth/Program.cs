@@ -13,9 +13,45 @@ namespace Synth
         {
             short[] wave = new short[SAMPLE_RATE];
             float frequency = 440f;
+            int samplesPerWaveLength = (int)(SAMPLE_RATE / frequency);
+            short ampStep = (short)((short.MaxValue * 2) / samplesPerWaveLength);
+            short tempSample;
+
+            // Saw
+            //tempSample = -short.MaxValue;
+
+            // Triangle
+            //tempSample = -short.MaxValue;
+
+            // Noise
+            //Random random = new Random();
+
             for (int i = 0; i < SAMPLE_RATE; i++)
             {
+                // Sine
                 wave[i] = Convert.ToInt16(short.MaxValue * Math.Sin(Math.PI * 2 * frequency / SAMPLE_RATE * i));
+
+                // Square
+                //wave[i] = Convert.ToInt16(short.MaxValue * Math.Sign(Math.Sin(Math.PI * 2 * frequency / SAMPLE_RATE * i)));
+
+                // Saw
+                //for (int j = 0; j < samplesPerWaveLength && i < SAMPLE_RATE; j++)
+                //{
+                //    tempSample += ampStep;
+                //    wave[i++] = Convert.ToInt16(tempSample);
+                //}
+                //i--;
+
+                // Triangle
+                //if (Math.Abs(tempSample + ampStep) > short.MaxValue)
+                //{
+                //    ampStep = (short)-ampStep;
+                //}
+                //tempSample += ampStep;
+                //wave[i] = Convert.ToInt16(tempSample);
+
+                // Noise
+                //wave[i] = (short)random.Next(-short.MaxValue, short.MaxValue);
             }
             byte[] binaryWave = new byte[SAMPLE_RATE * sizeof(short)];
             Buffer.BlockCopy(wave, 0, binaryWave, 0, wave.Length * sizeof(short));
